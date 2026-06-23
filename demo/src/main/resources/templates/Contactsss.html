@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact Dashboard</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .dashboard {
+            background: white;
+            width: 90%;
+            margin: auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 20px;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+            padding: 15px;
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .back {
+            background: #2563eb;
+        }
+
+        .logout {
+            background: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <h2>Contact Dashboard</h2>
+</nav>
+
+<h1>Saved Contacts</h1>
+
+<div class="dashboard">
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+
+        <tbody id="tableBody">
+
+        </tbody>
+    </table>
+
+    <br>
+
+    <button class="btn back"
+            onclick="window.location.href='/'">
+        Back to Form
+    </button>
+
+    <button class="btn logout"
+            onclick="window.location.href='/logout'">
+        Logout
+    </button>
+
+</div>
+
+<footer>
+    <p>Created by Shree</p>
+</footer>
+
+<script>
+
+    fetch("/contacts")
+        .then(response => response.json())
+        .then(data => {
+
+            let tableBody = document.getElementById("tableBody");
+
+            data.forEach(contact => {
+
+                tableBody.innerHTML += `
+            <tr>
+                <td>${contact.id}</td>
+                <td>${contact.name}</td>
+                <td>${contact.email}</td>
+                <td>${contact.message}</td>
+            </tr>
+        `;
+            });
+
+        })
+        .catch(error => console.error(error));
+
+</script>
+
+</body>
+</html>

@@ -1,35 +1,37 @@
 document.getElementById("contactForm")
-.addEventListener("submit", async function(e){
+    .addEventListener("submit", async function(e){
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const formData = new URLSearchParams();
+        const formData = new URLSearchParams();
 
-    formData.append(
-        "name",
-        document.getElementById("name").value
-    );
+        formData.append(
+            "name",
+            document.getElementById("name").value
+        );
 
-    formData.append(
-        "email",
-        document.getElementById("email").value
-    );
+        formData.append(
+            "email",
+            document.getElementById("email").value
+        );
 
-    formData.append(
-        "message",
-        document.getElementById("message").value
-    );
+        formData.append(
+            "message",
+            document.getElementById("message").value
+        );
 
-    const response = await fetch(
-        "http://localhost:8080/contact",
-        {
-            method:"POST",
-            body:formData
-        }
-    );
+        const response = await fetch(
+            "/contact",
+            {
+                method:"POST",
+                body:formData
+            }
+        );
 
-    const result = await response.text();
+        const result = await response.text();
 
-    document.getElementById("response")
-        .innerText = result;
-});
+        document.getElementById("response")
+            .innerText = result;
+
+        document.getElementById("contactForm").reset();
+    });
